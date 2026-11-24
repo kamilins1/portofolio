@@ -1,890 +1,148 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andi Pratama — Developer & Designer</title>
-  <meta name="description" content="Portofolio Andi Pratama, Full-Stack Developer & UI Designer dari Indonesia." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Oswald', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              gold: '#C5A059',
-              dark: '#0a0a0a',
-              panel: '#121212',
-              accent: '#E30613'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .glass-panel {
-      background: rgba(18, 18, 18, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    body { font-size: 1.125rem; }
-    html { scroll-behavior: smooth; }
-
-    /* Animasi fade in */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Typing cursor */
-    .typing-cursor::after {
-      content: '|';
-      animation: blink 1s step-end infinite;
-      color: #C5A059;
-    }
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    /* Skill bar animation */
-    .skill-fill {
-      width: 0%;
-      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .skill-fill.animate {
-      width: var(--fill);
-    }
-
-    /* Project card hover */
-    .project-card img {
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s;
-    }
-    .project-card:hover img {
-      transform: scale(1.08);
-      filter: grayscale(0) brightness(1.1);
-    }
-
-    /* Timeline */
-    .timeline-dot {
-      box-shadow: 0 0 0 4px #0a0a0a, 0 0 0 6px rgba(197,160,89,0.3);
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #C5A059; }
-
-    /* Toast */
-    .toast {
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.4s ease;
-    }
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  </style>
-</head>
-
-<body class="bg-brand-dark text-white font-sans antialiased">
-
-  <!-- ===================== NAVBAR ===================== -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#hero" class="flex items-center gap-2 group">
-        <span class="text-2xl">⚡</span>
-        <span class="font-display text-xl tracking-tight text-white group-hover:text-brand-gold transition-colors duration-300">ANDI<span class="text-brand-gold">.</span></span>
-      </a>
-
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#about" class="text-sm tracking-wide text-neutral-400 hover:text-brand-gold transition-colors duration-150">Tentang</a>
-        <a href="#skills" class="text-sm tracking-wide text-neutral-400 hover:text-brand-gold transition-colors duration-150">Keahlian</a>
-        <a href="#projects" class="text-sm tracking-wide text-neutral-400 hover:text-brand-gold transition-colors duration-150">Proyek</a>
-        <a href="#experience" class="text-sm tracking-wide text-neutral-400 hover:text-brand-gold transition-colors duration-150">Pengalaman</a>
-        <a href="#contact" class="ml-4 bg-brand-gold text-black text-sm font-medium uppercase tracking-wide px-6 py-3 hover:bg-white transition-colors duration-150">Kontak</a>
-      </div>
-
-      <!-- Mobile Toggle -->
-      <button id="menuToggle" class="md:hidden text-white p-2" aria-label="Toggle menu">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="md:hidden hidden glass-panel border-t border-white/5">
-      <div class="px-6 py-6 flex flex-col gap-4">
-        <a href="#about" class="text-neutral-400 hover:text-brand-gold transition-colors py-2 mobile-link">Tentang</a>
-        <a href="#skills" class="text-neutral-400 hover:text-brand-gold transition-colors py-2 mobile-link">Keahlian</a>
-        <a href="#projects" class="text-neutral-400 hover:text-brand-gold transition-colors py-2 mobile-link">Proyek</a>
-        <a href="#experience" class="text-neutral-400 hover:text-brand-gold transition-colors py-2 mobile-link">Pengalaman</a>
-        <a href="#contact" class="bg-brand-gold text-black text-center font-medium uppercase tracking-wide px-6 py-3 hover:bg-white transition-colors mt-2 mobile-link">Kontak</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ===================== HERO ===================== -->
-  <section id="hero" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <img src="https://picsum.photos/seed/hero-dark-code/1920/1080.jpg" alt="Hero background" class="w-full h-full object-cover opacity-40" />
-      <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/90 via-transparent to-brand-dark/40"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 text-center px-6 max-w-4xl">
-      <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-6 fade-up">Full-Stack Developer & UI Designer</p>
-      <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.9] tracking-tight mb-6 fade-up" style="transition-delay:0.15s">
-        HALO, SAYA<br/>
-        <span class="bg-gradient-to-r from-white to-neutral-500 bg-clip-text text-transparent">ANDI PRATAMA</span>
-      </h1>
-      <p class="text-lg text-neutral-400 leading-relaxed max-w-2xl mx-auto mb-10 fade-up" style="transition-delay:0.3s">
-        Membangun pengalaman digital yang <span class="text-brand-gold">elegan</span>, 
-        <span class="text-brand-gold">fungsional</span>, dan <span class="text-brand-gold">berdampak</span> 
-        dari Jakarta, Indonesia.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up" style="transition-delay:0.45s">
-        <a href="#projects" class="bg-brand-gold text-black font-medium uppercase tracking-wide text-base px-8 py-4 hover:bg-white transition-colors duration-150 inline-flex items-center justify-center gap-2">
-          Lihat Karya <i data-lucide="arrow-down" class="w-4 h-4"></i>
-        </a>
-        <a href="#contact" class="border border-white/20 text-white font-medium uppercase tracking-wide text-base px-8 py-4 hover:bg-white/5 transition-colors duration-150 inline-flex items-center justify-center gap-2">
-          Hubungi Saya <i data-lucide="mail" class="w-4 h-4"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-neutral-500">
-      <span class="text-xs uppercase tracking-widest">Scroll</span>
-      <div class="w-px h-12 bg-gradient-to-b from-brand-gold to-transparent animate-pulse"></div>
-    </div>
-  </section>
-
-  <!-- ===================== ABOUT ===================== -->
-  <section id="about" class="py-24 px-6">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <!-- Image -->
-      <div class="relative fade-up">
-        <div class="aspect-[4/5] overflow-hidden">
-          <img src="https://picsum.photos/seed/portrait-developer/800/1000.jpg" alt="Andi Pratama" class="w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
-        </div>
-        <div class="absolute -bottom-4 -right-4 w-32 h-32 border border-brand-gold/30 -z-10"></div>
-        <div class="absolute -top-4 -left-4 w-32 h-32 border border-brand-gold/30 -z-10"></div>
-      </div>
-
-      <!-- Text -->
-      <div class="fade-up" style="transition-delay:0.2s">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Tentang Saya</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-8">
-          Mengubah Ide<br/>Menjadi <span class="text-brand-gold">Realitas Digital</span>
-        </h2>
-        <div class="space-y-5 text-neutral-400 leading-relaxed">
-          <p>
-            Saya adalah seorang Full-Stack Developer dengan pengalaman 5+ tahun 
-            dalam membangun aplikasi web modern. Berbasis di Jakarta, saya telah 
-            bekerja dengan startup hingga perusahaan multinasional.
-          </p>
-          <p>
-            Fokus utama saya adalah menciptakan antarmuka yang intuitif dengan 
-            performa tinggi. Saya percaya bahwa kode yang baik bukan hanya 
-            tentang fungsi, tapi juga tentang pengalaman pengguna yang luar biasa.
-          </p>
-          <p>
-            Di luar coding, saya menikmati fotografi street, membaca buku desain, 
-            dan berkontribusi di proyek open-source.
-          </p>
-        </div>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-white/5">
-          <div>
-            <p class="font-display text-4xl font-semibold text-brand-gold" id="stat1">0</p>
-            <p class="text-sm text-neutral-500 mt-1">Tahun Pengalaman</p>
-          </div>
-          <div>
-            <p class="font-display text-4xl font-semibold text-brand-gold" id="stat2">0</p>
-            <p class="text-sm text-neutral-500 mt-1">Proyek Selesai</p>
-          </div>
-          <div>
-            <p class="font-display text-4xl font-semibold text-brand-gold" id="stat3">0</p>
-            <p class="text-sm text-neutral-500 mt-1">Klien Puas</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== SKILLS ===================== -->
-  <section id="skills" class="py-24 px-6 bg-brand-panel/50">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-16 fade-up">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Keahlian</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-          Tech Stack & <span class="text-brand-gold">Kemampuan</span>
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <!-- Skill Bars -->
-        <div class="space-y-6 fade-up">
-          <h3 class="font-display text-xl tracking-wide text-neutral-300 mb-6">Bahasa & Framework</h3>
-          
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">JavaScript / TypeScript</span>
-              <span class="text-brand-gold text-sm font-medium">95%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:95%"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">React / Next.js</span>
-              <span class="text-brand-gold text-sm font-medium">92%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:92%"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">Node.js / Express</span>
-              <span class="text-brand-gold text-sm font-medium">88%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:88%"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">Python / Django</span>
-              <span class="text-brand-gold text-sm font-medium">80%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:80%"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">Tailwind CSS / SCSS</span>
-              <span class="text-brand-gold text-sm font-medium">96%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:96%"></div>
-            </div>
-          </div>
-
-          <div class="skill-item">
-            <div class="flex justify-between mb-2">
-              <span class="text-neutral-300 text-base">PostgreSQL / MongoDB</span>
-              <span class="text-brand-gold text-sm font-medium">85%</span>
-            </div>
-            <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div class="skill-fill h-full bg-gradient-to-r from-brand-gold to-yellow-300 rounded-full" style="--fill:85%"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service Cards -->
-        <div class="space-y-6 fade-up" style="transition-delay:0.2s">
-          <h3 class="font-display text-xl tracking-wide text-neutral-300 mb-6">Layanan yang Saya Tawarkan</h3>
-
-          <div class="glass-panel p-8 rounded-sm hover:border-brand-gold/50 transition-all duration-300 group cursor-default">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
-              <i data-lucide="monitor" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <h4 class="font-display text-lg tracking-wide mb-2">Frontend Development</h4>
-            <p class="text-neutral-500 text-base leading-relaxed">Membangun UI responsif & interaktif dengan React, Next.js, dan animasi modern.</p>
-          </div>
-
-          <div class="glass-panel p-8 rounded-sm hover:border-brand-gold/50 transition-all duration-300 group cursor-default">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
-              <i data-lucide="server" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <h4 class="font-display text-lg tracking-wide mb-2">Backend Development</h4>
-            <p class="text-neutral-500 text-base leading-relaxed">API yang scalable, autentikasi aman, dan arsitektur database yang solid.</p>
-          </div>
-
-          <div class="glass-panel p-8 rounded-sm hover:border-brand-gold/50 transition-all duration-300 group cursor-default">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
-              <i data-lucide="palette" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <h4 class="font-display text-lg tracking-wide mb-2">UI/UX Design</h4>
-            <p class="text-neutral-500 text-base leading-relaxed">Desain antarmuka yang bersih, intuitif, dan berpusat pada pengguna.</p>
-          </div>
-
-          <div class="glass-panel p-8 rounded-sm hover:border-brand-gold/50 transition-all duration-300 group cursor-default">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
-              <i data-lucide="smartphone" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <h4 class="font-display text-lg tracking-wide mb-2">Mobile Development</h4>
-            <p class="text-neutral-500 text-base leading-relaxed">Aplikasi mobile cross-platform dengan React Native.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== PROJECTS ===================== -->
-  <section id="projects" class="py-24 px-6">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-16 fade-up">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Portofolio</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-          Proyek <span class="text-brand-gold">Terpilih</span>
-        </h2>
-      </div>
-
-      <!-- Filter Tabs -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12 fade-up">
-        <button class="filter-btn active text-sm uppercase tracking-wide px-5 py-2 border border-white/10 transition-all duration-200" data-filter="all">Semua</button>
-        <button class="filter-btn text-sm uppercase tracking-wide px-5 py-2 border border-white/10 text-neutral-500 hover:text-white transition-all duration-200" data-filter="web">Web App</button>
-        <button class="filter-btn text-sm uppercase tracking-wide px-5 py-2 border border-white/10 text-neutral-500 hover:text-white transition-all duration-200" data-filter="mobile">Mobile</button>
-        <button class="filter-btn text-sm uppercase tracking-wide px-5 py-2 border border-white/10 text-neutral-500 hover:text-white transition-all duration-200" data-filter="design">Design</button>
-      </div>
-
-      <!-- Project Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1" id="projectGrid">
-
-        <!-- Project 1 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="web">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/ecommerce-dashboard/800/600.jpg" alt="E-Commerce Platform" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Web App</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">E-Commerce Platform</h3>
-            <p class="text-neutral-400 text-sm">Full-stack marketplace dengan payment gateway, admin dashboard, dan real-time inventory.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Next.js</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Stripe</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">PostgreSQL</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="mobile">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/fitness-app-mobile/800/600.jpg" alt="Fitness Tracker" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Mobile</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">Fitness Tracker</h3>
-            <p class="text-neutral-400 text-sm">Aplikasi fitness dengan tracking aktivitas, meal planning, dan social features.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">React Native</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Firebase</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="design">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/saas-landing-design/800/600.jpg" alt="SaaS Landing Page" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Design</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">SaaS Landing Page</h3>
-            <p class="text-neutral-400 text-sm">Desain landing page conversion-optimized untuk startup SaaS.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Figma</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Framer</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="web">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/analytics-dashboard-dark/800/600.jpg" alt="Analytics Dashboard" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Web App</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">Analytics Dashboard</h3>
-            <p class="text-neutral-400 text-sm">Dashboard real-time dengan chart interaktif, export PDF, dan role-based access.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">React</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">D3.js</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Node.js</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="web">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/social-media-platform/800/600.jpg" alt="Social Platform" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Web App</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">Social Platform</h3>
-            <p class="text-neutral-400 text-sm">Platform komunitas dengan real-time chat, media sharing, dan algorithmic feed.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Next.js</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Socket.io</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">MongoDB</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="project-card group relative overflow-hidden cursor-pointer" data-category="design">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="https://picsum.photos/seed/brand-identity-gold/800/600.jpg" alt="Brand Identity" class="w-full h-full object-cover grayscale" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-            <p class="text-xs uppercase tracking-widest text-brand-gold mb-2">Design</p>
-            <h3 class="font-display text-2xl tracking-tight mb-2">Brand Identity System</h3>
-            <p class="text-neutral-400 text-sm">Identitas visual lengkap: logo, tipografi, warna, dan design guidelines.</p>
-            <div class="flex gap-2 mt-4">
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Illustrator</span>
-              <span class="text-xs bg-white/10 px-2 py-1 rounded">Figma</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== EXPERIENCE ===================== -->
-  <section id="experience" class="py-24 px-6 bg-brand-panel/50">
-    <div class="max-w-3xl mx-auto">
-      <!-- Header -->
-      <div class="text-center mb-16 fade-up">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Perjalanan Karir</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-          Pengalaman <span class="text-brand-gold">Kerja</span>
-        </h2>
-      </div>
-
-      <!-- Timeline -->
-      <div class="relative">
-        <!-- Line -->
-        <div class="absolute left-4 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px bg-white/10"></div>
-
-        <!-- Item 1 -->
-        <div class="relative flex flex-col md:flex-row md:items-center mb-12 fade-up">
-          <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0">
-            <p class="text-brand-gold text-sm font-medium mb-1">2022 — Sekarang</p>
-            <h3 class="font-display text-xl tracking-wide">Senior Frontend Engineer</h3>
-            <p class="text-neutral-500 text-base mt-1">Tokopedia — Jakarta</p>
-            <p class="text-neutral-400 text-base mt-3 leading-relaxed">Memimpin tim 5 developer untuk membangun komponen design system yang digunakan oleh 50+ tim product.</p>
-          </div>
-          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-3 h-3 rounded-full bg-brand-gold timeline-dot"></div>
-          <div class="md:w-1/2 md:pl-12"></div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="relative flex flex-col md:flex-row md:items-center mb-12 fade-up">
-          <div class="md:w-1/2 md:pr-12"></div>
-          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-3 h-3 rounded-full bg-brand-gold timeline-dot"></div>
-          <div class="md:w-1/2 md:pl-12 pl-12">
-            <p class="text-brand-gold text-sm font-medium mb-1">2020 — 2022</p>
-            <h3 class="font-display text-xl tracking-wide">Full-Stack Developer</h3>
-            <p class="text-neutral-500 text-base mt-1">Gojek — Jakarta</p>
-            <p class="text-neutral-400 text-base mt-3 leading-relaxed">Mengembangkan fitur internal dashboard untuk monitoring driver performance dan analytics real-time.</p>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="relative flex flex-col md:flex-row md:items-center mb-12 fade-up">
-          <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0">
-            <p class="text-brand-gold text-sm font-medium mb-1">2019 — 2020</p>
-            <h3 class="font-display text-xl tracking-wide">Frontend Developer</h3>
-            <p class="text-neutral-500 text-base mt-1">Bukalapak — Jakarta</p>
-            <p class="text-neutral-400 text-base mt-3 leading-relaxed">Membangun halaman produk dan checkout flow yang meningkatkan konversi sebesar 23%.</p>
-          </div>
-          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-3 h-3 rounded-full bg-brand-gold timeline-dot"></div>
-          <div class="md:w-1/2 md:pl-12"></div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="relative flex flex-col md:flex-row md:items-center fade-up">
-          <div class="md:w-1/2 md:pr-12"></div>
-          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-3 h-3 rounded-full bg-brand-gold timeline-dot"></div>
-          <div class="md:w-1/2 md:pl-12 pl-12">
-            <p class="text-brand-gold text-sm font-medium mb-1">2018 — 2019</p>
-            <h3 class="font-display text-xl tracking-wide">Junior Web Developer</h3>
-            <p class="text-neutral-500 text-base mt-1">Freelance — Remote</p>
-            <p class="text-neutral-400 text-base mt-3 leading-relaxed">Mengerjakan 20+ proyek website untuk UMKM lokal, mulai dari toko online hingga company profile.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== TESTIMONIALS ===================== -->
-  <section class="py-24 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16 fade-up">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Testimoni</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight">
-          Apa Kata <span class="text-brand-gold">Mereka</span>
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Testimonial 1 -->
-        <div class="glass-panel p-8 fade-up hover:border-brand-gold/50 transition-all duration-300">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-          </div>
-          <p class="text-neutral-300 text-base leading-relaxed mb-6">"Andi mengubah konsep kabur kami menjadi produk digital yang luar biasa. Kodenya bersih dan dokumentasinya sempurna."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center">
-              <span class="text-brand-gold font-semibold text-sm">RS</span>
-            </div>
-            <div>
-              <p class="text-white text-sm font-medium">Rina Susanti</p>
-              <p class="text-neutral-500 text-xs">CEO, TechStart Indonesia</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div class="glass-panel p-8 fade-up hover:border-brand-gold/50 transition-all duration-300" style="transition-delay:0.15s">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-          </div>
-          <p class="text-neutral-300 text-base leading-relaxed mb-6">"Komunikasi luar biasa, selalu tepat waktu, dan hasilnya melebihi ekspektasi. Sangat direkomendasikan!"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center">
-              <span class="text-brand-gold font-semibold text-sm">BW</span>
-            </div>
-            <div>
-              <p class="text-white text-sm font-medium">Budi Wicaksono</p>
-              <p class="text-neutral-500 text-xs">CTO, PayEasy</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="glass-panel p-8 fade-up hover:border-brand-gold/50 transition-all duration-300" style="transition-delay:0.3s">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-            <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
-          </div>
-          <p class="text-neutral-300 text-base leading-relaxed mb-6">"Design yang Andi buat tidak hanya cantik, tapi juga sangat user-friendly. Conversion rate kami naik 40%."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center">
-              <span class="text-brand-gold font-semibold text-sm">DA</span>
-            </div>
-            <div>
-              <p class="text-white text-sm font-medium">Dewi Anggraini</p>
-              <p class="text-neutral-500 text-xs">Product Manager, ShopNow</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT ===================== -->
-  <section id="contact" class="py-24 px-6 bg-brand-panel/50">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-      <!-- Left -->
-      <div class="fade-up">
-        <p class="text-xs font-medium uppercase tracking-[0.3em] text-brand-gold mb-4">Hubungi Saya</p>
-        <h2 class="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-6">
-          Mari <span class="text-brand-gold">Berkolaborasi</span>
-        </h2>
-        <p class="text-neutral-400 leading-relaxed mb-10">
-          Punya proyek menarik? Saya selalu terbuka untuk diskusi tentang 
-          proyek baru, ide kreatif, atau kesempatan kolaborasi.
-        </p>
-
-        <div class="space-y-6">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-              <i data-lucide="mail" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <div>
-              <p class="text-neutral-500 text-sm">Email</p>
-              <p class="text-white">andi.pratama@email.com</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-              <i data-lucide="map-pin" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <div>
-              <p class="text-neutral-500 text-sm">Lokasi</p>
-              <p class="text-white">Jakarta, Indonesia</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-              <i data-lucide="phone" class="w-5 h-5 text-brand-gold"></i>
-            </div>
-            <div>
-              <p class="text-neutral-500 text-sm">Telepon</p>
-              <p class="text-white">+62 812-3456-7890</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Social -->
-        <div class="flex gap-4 mt-10">
-          <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:border-brand-gold hover:text-white transition-all duration-300">
-            <i data-lucide="github" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:border-brand-gold hover:text-white transition-all duration-300">
-            <i data-lucide="linkedin" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:border-brand-gold hover:text-white transition-all duration-300">
-            <i data-lucide="twitter" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:border-brand-gold hover:text-white transition-all duration-300">
-            <i data-lucide="instagram" class="w-5 h-5"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right: Form -->
-      <div class="fade-up" style="transition-delay:0.2s">
-        <form id="contactForm" class="glass-panel p-8 md:p-10 space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label class="text-sm text-neutral-400 mb-2 block">Nama Lengkap</label>
-              <input type="text" required placeholder="John Doe" class="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-neutral-600 focus:border-brand-gold focus:outline-none transition-colors text-base" />
-            </div>
-            <div>
-              <label class="text-sm text-neutral-400 mb-2 block">Email</label>
-              <input type="email" required placeholder="john@email.com" class="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-neutral-600 focus:border-brand-gold focus:outline-none transition-colors text-base" />
-            </div>
-          </div>
-          <div>
-            <label class="text-sm text-neutral-400 mb-2 block">Subjek</label>
-            <input type="text" required placeholder="Tentang proyek..." class="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-neutral-600 focus:border-brand-gold focus:outline-none transition-colors text-base" />
-          </div>
-          <div>
-            <label class="text-sm text-neutral-400 mb-2 block">Pesan</label>
-            <textarea required rows="5" placeholder="Ceritakan tentang proyek Anda..." class="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-neutral-600 focus:border-brand-gold focus:outline-none transition-colors text-base resize-none"></textarea>
-          </div>
-          <button type="submit" class="w-full bg-brand-gold text-black font-medium uppercase tracking-wide text-base px-8 py-4 hover:bg-white transition-colors duration-150 flex items-center justify-center gap-2">
-            Kirim Pesan <i data-lucide="send" class="w-4 h-4"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="py-12 px-6 border-t border-white/5">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2">
-        <span class="text-xl">⚡</span>
-        <span class="font-display text-lg tracking-tight">ANDI<span class="text-brand-gold">.</span></span>
-      </div>
-      <p class="text-neutral-500 text-sm text-center">
-        © 2025 Andi Pratama. Dibuat dengan <span class="text-brand-gold">❤</span> di Jakarta. Hosted di GitHub Pages.
-      </p>
-      <a href="#hero" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:border-brand-gold hover:text-white transition-all duration-300">
-        <i data-lucide="arrow-up" class="w-4 h-4"></i>
-      </a>
-    </div>
-  </footer>
-
-  <!-- ===================== TOAST ===================== -->
-  <div id="toast" class="toast fixed bottom-6 right-6 z-50 glass-panel px-6 py-4 rounded-sm flex items-center gap-3 border border-brand-gold/30">
-    <i data-lucide="check-circle" class="w-5 h-5 text-brand-gold"></i>
-    <span class="text-white text-sm" id="toastMessage">Pesan berhasil dikirim!</span>
-  </div>
-
-  <!-- ===================== JAVASCRIPT ===================== -->
-  <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
-    // ===== NAVBAR SCROLL EFFECT =====
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 80) {
-        navbar.classList.add('glass-panel');
-      } else {
-        navbar.classList.remove('glass-panel');
-      }
-    });
-
-    // ===== MOBILE MENU =====
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // ===== FADE-UP ON SCROLL =====
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // ===== SKILL BAR ANIMATION =====
-    const skillObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.skill-fill').forEach(bar => {
-            bar.classList.add('animate');
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.skill-item').forEach(el => skillObserver.observe(el.parentElement));
-
-    // ===== COUNTER ANIMATION =====
-    function animateCounter(id, target, suffix = '+') {
-      const el = document.getElementById(id);
-      let current = 0;
-      const increment = target / 60;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        el.textContent = Math.floor(current) + suffix;
-      }, 25);
-    }
-
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter('stat1', 5, '+');
-          animateCounter('stat2', 50, '+');
-          animateCounter('stat3', 35, '+');
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    statsObserver.observe(document.getElementById('stat1').parentElement.parentElement);
-
-    // ===== PROJECT FILTER =====
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active state
-        filterBtns.forEach(b => {
-          b.classList.remove('active', 'text-white', 'bg-brand-gold', 'border-brand-gold');
-          b.classList.add('text-neutral-500');
-        });
-        btn.classList.add('active', 'text-white', 'bg-brand-gold', 'border-brand-gold');
-        btn.classList.remove('text-neutral-500');
-
-        const filter = btn.dataset.filter;
-
-        projectCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-              card.style.opacity = '1';
-              card.style.transform = 'scale(1)';
-            }, 50);
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-              card.style.display = 'none';
-            }, 400);
-          }
-        });
-      });
-    });
-
-    // Initialize first filter button
-    filterBtns[0].classList.add('text-white', 'bg-brand-gold', 'border-brand-gold');
-    filterBtns[0].classList.remove('text-neutral-500');
-
-    // ===== CONTACT FORM =====
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      showToast('Pesan berhasil dikirim! Saya akan segera membalas.');
-      e.target.reset();
-    });
-
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toastMessage');
-      toastMsg.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 4000);
-    }
-
-    // ===== ACTIVE NAV LINK ON SCROLL =====
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 200;
-        if (window.scrollY >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-      document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-        link.classList.remove('!text-brand-gold');
-        if (link.getAttribute('href') === '#' + current) {
-          link.classList.add('!text-brand-gold');
-        }
-      });
-    });
-  </script>
-
-</body>
-</html>
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lapak Kuota</title>
+<style>
+:root{--b:#0f766e;--bg:#f2f5f4;--c:#fff;--t:#17221f;--m:#66757a;--r:#c62828}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1716;--c:#1a2523;--t:#e4ecea;--m:#93a4a2}}
+*{box-sizing:border-box}body{margin:0;font:15px system-ui,sans-serif;background:var(--bg);color:var(--t)}
+header{background:var(--b);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+nav{display:flex;overflow-x:auto;background:var(--c);border-bottom:1px solid #8883}
+nav button{flex:none;border:0;background:none;padding:12px 14px;color:var(--m);font:inherit;border-radius:0}
+nav .on{color:var(--b);border-bottom:2px solid var(--b);font-weight:600}
+main{padding:12px;max-width:760px;margin:auto}
+.card{background:var(--c);border-radius:10px;padding:12px;margin-bottom:10px}
+input,select,button,textarea{font:inherit;padding:9px;border:1px solid #8886;border-radius:8px;background:var(--c);color:var(--t);max-width:100%}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--b)}
+.btn{background:var(--b);color:#fff;border:0}.red{background:var(--r);color:#fff;border:0}
+.row{display:flex;gap:8px;align-items:center;margin:6px 0}.row>*{flex:1}.sp{justify-content:space-between}
+.w{width:100%;margin:4px 0}.m{color:var(--m);font-size:13px}.low{color:var(--r);font-weight:600}
+ul{padding:0;margin:0}li{list-style:none}.it{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #8883;cursor:pointer}
+.modal{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;padding:12px;z-index:9}
+.modal>div{background:var(--c);border-radius:12px;padding:14px;max-height:92vh;overflow:auto;width:100%;max-width:400px}
+#rc{width:58mm;font:12px monospace;color:#000;background:#fff;padding:2mm;margin:auto}
+@page{size:58mm auto;margin:0}
+@media print{body *{visibility:hidden}#rc,#rc *{visibility:visible}#rc{position:fixed;left:0;top:0}}
+</style></head><body><div id="app"></div><div id="md"></div>
+<script>
+const URL_API=https://script.google.com/macros/s/AKfycbzC8Zi0mQT3nImUKjoJJM4nFD7ia3Me9dSV5-OE257ZcyyH3GdlSXjOn7KG3eL8g6iHZA/exec; // tempel URL Web app Apps Script di sini
+const $=s=>document.querySelector(s),rp=n=>"Rp"+Math.round(n).toLocaleString("id-ID"),sum=a=>a.reduce((x,y)=>x+y,0);
+const E=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LS={g:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let S={ops:LS.g("ops",[]),pend:LS.g("pend",[]),last:LS.g("last",0),me:LS.g("me",null),dev:LS.g("dev",null),n:LS.g("n",0)};
+if(!S.dev){S.dev=Math.random().toString(36).slice(2,4).toUpperCase();LS.s("dev",S.dev)}
+const save=()=>{LS.s("ops",S.ops);LS.s("pend",S.pend);LS.s("last",S.last);LS.s("me",S.me);LS.s("n",S.n)};
+let M,cart=[],tab="kasir",qs="",online=navigator.onLine,busy=0,setup=null,fq=0,per="hari",HL=[],LG="";
+const TB=[["kasir","Kasir"],["produk","Produk"],["hutang","Hutang"],["saldo","Saldo"],["lap","Laporan"],["akun","Akun"],["set","Setelan"]];
+const own=()=>S.me.role=="owner";
+async function H(u,p){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("lk:"+u.toLowerCase()+":"+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+
+/* ---- data: semua keadaan dihitung dari daftar operasi ---- */
+function calc(){const P={},U={},K={},D={};let cfg={name:"Lapak Kuota",header:"",footer:"Terima kasih",logo:""},saldo=0,sales=[];
+ for(const o of S.ops.concat(S.pend)){const d=o.d;
+  if(o.t=="prod")P[d.id]={...P[d.id],...d};
+  else if(o.t=="buy"){K[d.pid]=(K[d.pid]||0)+d.qty;if(!d.i)saldo-=d.qty*d.cost}
+  else if(o.t=="sale"){sales.push(d);for(const i of d.items)K[i.pid]=(K[i.pid]||0)-i.q;if(d.method=="hutang")D[d.cust]=(D[d.cust]||0)+d.total;else saldo+=d.total}
+  else if(o.t=="pay"){D[d.cust]=(D[d.cust]||0)-d.amount;saldo+=d.amount}
+  else if(o.t=="cash")saldo+=d.amount;
+  else if(o.t=="user")U[d.u]={...U[d.u],...d};
+  else if(o.t=="set")cfg={...cfg,...d}}
+ return{P,U,K,D,cfg,saldo,sales}}
+function op(t,d){S.pend.push({id:S.dev+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t,d,ts:Date.now(),by:S.me?.u});save();render();sync()}
+async function api(b){const r=await fetch(URL_API,{method:"POST",body:JSON.stringify({...b,token:S.me?.token}),headers:{"Content-Type":"text/plain;charset=utf-8"}});return r.json()}
+const ind=()=>{const e=$("#ind"),n=S.pend.length;if(e)e.textContent=online?(n?"Menunggu "+n:"Tersinkron"):"Offline"+(n?" · "+n+" menunggu":"")};
+async function sync(){if(busy||!S.me)return;busy=1;try{const n=S.pend.length,sent=new Set(S.pend.slice(0,n).map(o=>o.id));
+ const r=await api({action:"sync",since:S.last,ops:S.pend.slice(0,n)});
+ if(!r.ok){if(r.err=="auth")logout(true);throw 0}
+ S.pend=S.pend.slice(n);const have=new Set(S.ops.map(o=>o.id));for(const o of r.ops)if(!have.has(o.id))S.ops.push(o);
+ S.last=r.last;save();online=true;busy=0;ind();
+ if(r.ops.some(o=>!sent.has(o.id))&&!document.activeElement?.matches("input,textarea"))render();return}catch(e){online=false}busy=0;ind()}
+setInterval(sync,45000);addEventListener("online",sync);
+
+/* ---- login ---- */
+function authView(){if(URL_API.startsWith("PASTE"))return"<main><div class=card>Isi URL_API di bagian atas index.html dengan URL Web app Apps Script.</div></main>";
+ if(setup===null)return"<main><div class=card>Menghubungkan ke server… pastikan internet aktif.<br><br><button onclick=location.reload()>Coba lagi</button></div></main>";
+ return`<main><div class=card><h2>Lapak Kuota</h2><p class=m>${setup?"Buat akun Pemilik pertama":"Masuk"}</p>${setup?'<input id=an class=w placeholder="Nama">':""}<input id=au class=w placeholder=Username autocapitalize=off><input id=ap class=w type=password placeholder=Password><button class="btn w" onclick=doAuth()>${setup?"Buat akun":"Masuk"}</button></div></main>`}
+async function doAuth(){const u=$("#au").value.trim().toLowerCase(),p=$("#ap").value;if(!u||!p)return;
+ if(!/^[a-z0-9._-]+$/.test(u))return alert("Username: huruf kecil, angka, titik, strip");const h=await H(u,p);
+ try{const r=await api(setup?{action:"setup",u,name:$("#an").value.trim()||u,h}:{action:"login",u,h});
+  if(!r.ok)return alert(r.err=="lock"?"Terlalu banyak percobaan. Coba lagi 5 menit.":"Username atau password salah");
+  S.me=r.me;save();online=true;sync()}catch(e){return alert("Tidak bisa terhubung ke server")}render()}
+function logout(f){if(!f&&S.pend.length&&!confirm("Ada data belum tersinkron. Tetap keluar?"))return;S.me=null;save();setup=null;boot()}
+function boot(){render();if(!S.me&&!URL_API.startsWith("PASTE"))api({action:"status"}).then(r=>{setup=r.setup;render()}).catch(()=>{});else sync()}
+
+/* ---- tampilan ---- */
+function render(){M=calc();const a=$("#app");if(!S.me){a.innerHTML=authView();return}
+ if(!own()&&!["kasir","produk","hutang"].includes(tab))tab="kasir";
+ a.innerHTML=`<header><b>Lapak Kuota</b><small><span id=ind></span> · ${E(S.me.name)} · <a href=# onclick="logout();return false" style=color:#fff>Keluar</a></small></header><nav>${(own()?TB:TB.slice(0,3)).map(([k,v])=>`<button class="${k==tab?"on":""}" onclick="tab='${k}';render()">${v}</button>`).join("")}</nav><main>${({kasir:vKasir,produk:vProduk,hutang:vHutang,saldo:vSaldo,lap:vLap,akun:vAkun,set:vSet})[tab]()}</main>`;
+ ind();if(fq){$("#q")?.focus();fq=0}}
+const low=()=>Object.values(M.P).filter(p=>!p.off&&(M.K[p.id]||0)<=p.min);
+const lowH=()=>low().length?`<div class="card low">⚠ ${low().length} produk stok menipis</div>`:"";
+const tot=()=>cart.reduce((a,i)=>a+i.q*i.price,0);
+function resH(){const q=qs.toLowerCase();return(q?Object.values(M.P).filter(p=>!p.off&&(p.name.toLowerCase().includes(q)||p.bc==qs)).slice(0,8):[]).map(p=>`<li class=it onclick="add('${p.id}')"><span>${E(p.name)}<br><span class=m>stok ${M.K[p.id]||0}</span></span><b>${rp(p.price)}</b></li>`).join("")}
+function vKasir(){return`${lowH()}<div class=card><div class=row><input id=q placeholder="Ketik nama / scan barcode" value="${E(qs)}" autocomplete=off oninput="qs=this.value;$('#res').innerHTML=resH()" onkeydown="if(event.key=='Enter')addBc(qs)"><button style="flex:none" onclick="scan(addBc)">📷</button></div><ul id=res>${resH()}</ul></div>
+<div class=card>${cart.length?cart.map((i,x)=>`<div class=it style=cursor:default><span>${E(i.name)}<br><span class=m>${rp(i.price)}</span></span><span><button onclick="qty(${x},-1)">−</button> ${i.q} <button onclick="qty(${x},1)">+</button></span></div>`).join(""):"<span class=m>Keranjang kosong</span>"}
+<div class="row sp"><b>Total</b><b>${rp(tot())}</b></div>
+<select id=mt class=w><option value=tunai>Tunai<option value=transfer>Transfer<option value=qris>QRIS<option value=hutang>Hutang</select>
+<input id=cu class=w placeholder="Nama pelanggan (wajib untuk hutang)"><input id=pd class=w type=number placeholder="Uang diterima (tunai)" oninput="kb()"><div id=kbx class=m></div>
+<button class="btn w" onclick=pay()>Bayar</button></div>`}
+const kb=()=>{const v=+$("#pd").value-tot();$("#kbx").textContent=v>=0?"Kembalian "+rp(v):"Kurang "+rp(-v)};
+function add(id){const c=cart.find(i=>i.id==id);if(c)c.q++;else cart.push({...M.P[id],q:1});qs="";render()}
+function addBc(b){const p=Object.values(M.P).find(p=>!p.off&&p.bc&&p.bc==b);if(p){fq=1;add(p.id)}else if(b&&!resH())alert("Barcode tidak ditemukan: "+b)}
+function qty(x,d){cart[x].q+=d;if(cart[x].q<1)cart.splice(x,1);render()}
+function pay(){if(!cart.length)return;const m=$("#mt").value,c=$("#cu").value.trim();if(m=="hutang"&&!c)return alert("Isi nama pelanggan untuk hutang");
+ const d=new Date(),ymd=d.getFullYear()%100*10000+(d.getMonth()+1)*100+d.getDate();S.n++;
+ const s={no:`${S.dev}-${ymd}-${String(S.n).padStart(4,"0")}`,items:cart.map(i=>({pid:i.id,name:i.name,q:i.q,price:i.price,c:i.cost||0})),total:tot(),method:m,cust:c,rec:+$("#pd").value||0,by:S.me.name,ts:Date.now()};
+ cart=[];qs="";op("sale",s);receipt(s)}
+function receipt(s,c=M.cfg){const l=(a,b)=>`<div style="display:flex;justify-content:space-between"><span>${a}</span><span>${b}</span></div>`,cash=s.method=="tunai"&&s.rec;
+ $("#md").innerHTML=`<div class=modal><div><div id=rc>${c.logo?`<img src="${c.logo}" style="display:block;margin:0 auto 4px;max-width:40mm">`:""}<div style=text-align:center><b>${E(c.name)}</b><br>${E(c.header).replace(/\n/g,"<br>")}</div><hr>${E(s.no)}<br>${new Date(s.ts).toLocaleString("id-ID")}<br>Kasir: ${E(s.by)}<hr>${s.items.map(i=>E(i.name)+l(i.q+" x "+rp(i.price),rp(i.q*i.price))).join("")}<hr>${l("<b>TOTAL</b>","<b>"+rp(s.total)+"</b>")}${l(s.method.toUpperCase(),cash?rp(s.rec):"")}${cash?l("Kembali",rp(s.rec-s.total)):""}${s.cust?"<div>Pelanggan: "+E(s.cust)+"</div>":""}<hr><div style=text-align:center>${E(c.footer).replace(/\n/g,"<br>")}</div></div><div class=row><button class=btn onclick="print()">Cetak</button><button onclick="$('#md').innerHTML=''">Tutup</button></div></div></div>`}
+async function scan(cb){if(!("BarcodeDetector" in window))return cb(prompt("Browser ini belum bisa scan lewat kamera. Ketik atau scan dengan alat scanner:")||"");
+ let s;try{s=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}})}catch(e){return alert("Kamera tidak bisa diakses")}
+ const m=document.createElement("div");m.className="modal";m.style.zIndex=99;m.innerHTML="<div><video autoplay playsinline muted style=width:100%></video><button class=w>Batal</button></div>";
+ const v=m.querySelector("video");v.srcObject=s;document.body.append(m);let on=1;const end=()=>{on=0;s.getTracks().forEach(t=>t.stop());m.remove()};m.querySelector("button").onclick=end;
+ const d=new BarcodeDetector();(async function l(){if(!on)return;try{const r=await d.detect(v);if(r[0]){end();return cb(r[0].rawValue)}}catch(e){}setTimeout(l,250)})()}
+
+function vProduk(){return`${lowH()}<div class=card>${own()?`<button class="btn w" onclick="pForm()">+ Produk</button>`:""}<ul>${Object.values(M.P).filter(p=>!p.off).sort((a,b)=>a.name.localeCompare(b.name)).map(p=>{const s=M.K[p.id]||0;return`<li class=it ${own()?`onclick="pForm('${p.id}')"`:""}><span>${E(p.name)}<br><span class=m>${E(p.bc)}${own()?" · modal "+rp(p.cost):""}</span></span><span style=text-align:right><b>${rp(p.price)}</b><br><span class="${s<=p.min?"low":"m"}">stok ${s}</span></span></li>`}).join("")}</ul></div>`}
+function pForm(id){const p=M.P[id]||{};$("#md").innerHTML=`<div class=modal><div><h3>${id?"Edit":"Tambah"} produk</h3>
+<div class=row><input id=pb placeholder="Barcode / SKU" value="${E(p.bc||"")}"><button style=flex:none onclick="scan(b=>$('#pb').value=b)">📷</button><button style=flex:none onclick="$('#pb').value='LK'+Date.now().toString(36).toUpperCase()">Auto</button></div>
+<input class=w id=pn placeholder="Nama produk" value="${E(p.name||"")}"><div class=row><input id=pc type=number placeholder="Harga modal" value="${p.cost||""}"><input id=pp type=number placeholder="Harga jual" value="${p.price||""}"></div>
+<div class=row><input id=pm type=number placeholder="Stok minimum" value="${p.min??""}">${id?"":"<input id=ps type=number placeholder='Stok awal'>"}</div>
+<div class=row><button class=btn onclick="pSave('${id||""}')">Simpan</button>${id?`<button onclick="addStock('${id}')">+Stok</button><button class=red onclick="pOff('${id}')">Hapus</button>`:""}<button onclick="$('#md').innerHTML=''">Batal</button></div></div></div>`}
+function pSave(id){const bc=$("#pb").value.trim(),name=$("#pn").value.trim();if(!name)return alert("Isi nama produk");
+ const dup=Object.values(M.P).find(p=>!p.off&&bc&&p.bc==bc&&p.id!=id);if(dup){if(confirm("Barcode sudah dipakai: "+dup.name+". Buka produk itu?"))pForm(dup.id);return}
+ const pid=id||S.dev+Date.now().toString(36),cost=+$("#pc").value||0,s=!id&&+$("#ps").value;
+ op("prod",{id:pid,bc,name,cost,price:+$("#pp").value||0,min:+$("#pm").value||0,off:false});if(s)op("buy",{pid,qty:s,cost,i:1});$("#md").innerHTML=""}
+function addStock(id){const q=+prompt("Jumlah stok masuk:");if(!q)return;const c=+prompt("Harga modal per unit:",M.P[id].cost);op("buy",{pid:id,qty:q,cost:c});$("#md").innerHTML=""}
+function pOff(id){if(confirm("Hapus produk ini? Riwayat transaksi tetap aman")){op("prod",{id,off:true});$("#md").innerHTML=""}}
+
+function vHutang(){HL=Object.entries(M.D).filter(([,v])=>v>0);return`<div class=card>${HL.length?"":"<span class=m>Tidak ada hutang</span>"}<ul>${HL.map(([c,v],i)=>`<li class=it onclick="bayarH(${i})"><span>${E(c)}</span><b>${rp(v)}</b></li>`).join("")}</ul></div>`}
+function bayarH(i){const[c,v]=HL[i],a=+prompt(`Bayar hutang ${c} (sisa ${rp(v)}). Jumlah:`,v);if(a>0)op("pay",{cust:c,amount:a})}
+function vSaldo(){return`<div class=card><div class=m>Saldo</div><h2>${rp(M.saldo)}</h2><div class=m>Modal awal + penjualan + pelunasan hutang − belanja stok</div><button class="btn w" onclick="cashIn()">Tambah modal / setoran</button></div>`}
+function cashIn(){const a=+prompt("Jumlah (negatif untuk mengurangi):");if(a)op("cash",{amount:a})}
+function vLap(){const n=new Date(),t0=per=="hari"?new Date(n.getFullYear(),n.getMonth(),n.getDate()):per=="minggu"?new Date(n.getFullYear(),n.getMonth(),n.getDate()-6):new Date(n.getFullYear(),n.getMonth(),1);
+ const L=M.sales.filter(s=>s.ts>=t0),om=sum(L.map(s=>s.total)),hpp=sum(L.flatMap(s=>s.items.map(i=>i.q*(i.c||0)))),by={},top={};
+ for(const s of L){by[s.method]=(by[s.method]||0)+s.total;for(const i of s.items)top[i.name]=(top[i.name]||0)+i.q}
+ return`<div class=card><div class=row>${[["hari","Hari ini"],["minggu","7 hari"],["bulan","Bulan ini"]].map(([k,v])=>`<button class="${k==per?"btn":""}" onclick="per='${k}';render()">${v}</button>`).join("")}</div>
+<div class="row sp"><span>Omzet</span><b>${rp(om)}</b></div><div class="row sp"><span>Modal barang terjual</span><b>${rp(hpp)}</b></div><div class="row sp"><span>Laba</span><b>${rp(om-hpp)}</b></div><div class="row sp"><span>Transaksi</span><b>${L.length}</b></div></div>
+<div class=card><b>Per metode bayar</b>${Object.entries(by).map(([k,v])=>`<div class="row sp"><span>${k}</span><span>${rp(v)}</span></div>`).join("")||"<div class=m>Belum ada</div>"}</div>
+<div class=card><b>Produk terlaris</b>${Object.entries(top).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>`<div class="row sp"><span>${E(k)}</span><span>${v}</span></div>`).join("")||"<div class=m>Belum ada</div>"}</div>
+<div class=card><b>Transaksi terakhir</b><ul>${M.sales.slice(-10).reverse().map((s,k)=>`<li class=it onclick="receipt(M.sales[${M.sales.length-1-k}])"><span>${E(s.no)}</span><b>${rp(s.total)}</b></li>`).join("")}</ul></div>`}
+
+function vAkun(){return`<div class=card><button class="btn w" onclick="uForm()">+ Akun</button><ul>${Object.values(M.U).filter(u=>!u.off).map(u=>`<li class=it onclick="uForm('${u.u}')"><span>${E(u.name)}<br><span class=m>${E(u.u)}</span></span><b>${u.role=="owner"?"Pemilik":"Kasir"}</b></li>`).join("")}</ul></div>`}
+function uForm(u){const x=M.U[u]||{};$("#md").innerHTML=`<div class=modal><div><h3>${u?"Edit":"Tambah"} akun</h3>${u?`<div class=m>${E(u)}</div>`:"<input id=uu class=w placeholder=Username autocapitalize=off>"}<input id=un class=w placeholder=Nama value="${E(x.name||"")}"><select id=ur class=w><option value=kasir>Kasir<option value=owner ${x.role=="owner"?"selected":""}>Pemilik</select><input id=up class=w type=password placeholder="${u?"Password baru (kosongkan jika tidak diubah)":"Password"}"><div class=row><button class=btn onclick="uSave('${u||""}')">Simpan</button>${u?`<button class=red onclick="uDel('${u}')">Hapus</button>`:""}<button onclick="$('#md').innerHTML=''">Batal</button></div></div></div>`}
+async function uSave(old){const u=old||$("#uu").value.trim().toLowerCase(),name=$("#un").value.trim(),role=$("#ur").value,pw=$("#up").value;
+ if(!u||!name||(!old&&!pw))return alert("Lengkapi data");if(!/^[a-z0-9._-]+$/.test(u))return alert("Username: huruf kecil, angka, titik, strip");
+ if(!old&&M.U[u])return alert("Username sudah dipakai");if(old==S.me.u&&role!="owner")return alert("Tidak bisa menurunkan peran akun sendiri");
+ const d={u,name,role,off:false};if(pw)d.h=await H(u,pw);op("user",d);$("#md").innerHTML=""}
+function uDel(u){if(u==S.me.u)return alert("Tidak bisa menghapus akun sendiri");
+ if(M.U[u].role=="owner"&&Object.values(M.U).filter(x=>x.role=="owner"&&!x.off).length<2)return alert("Harus ada minimal satu Pemilik");
+ if(confirm("Hapus akun "+u+"?")){op("user",{u,off:true});$("#md").innerHTML=""}}
+
+function vSet(){const c=M.cfg;LG=c.logo||"";return`<div class=card><input id=sn class=w placeholder="Nama toko" value="${E(c.name)}"><textarea id=sh class=w rows=3 placeholder="Header (alamat, nomor HP)">${E(c.header)}</textarea><textarea id=sf class=w rows=2 placeholder=Footer>${E(c.footer)}</textarea>
+<div class=row><input type=file accept="image/*" onchange="logo(this.files[0])"><img id=lgp ${LG?`src="${LG}"`:""} style=max-width:80px></div>
+<div class=row><button class=btn onclick=sSave()>Simpan</button><button onclick=prev()>Pratinjau</button></div><button class=w onclick=openSS()>Buka Spreadsheet</button></div>`}
+function logo(f){if(!f)return;const i=new Image();i.onload=()=>{const c=document.createElement("canvas");c.width=200;c.height=i.height*200/i.width;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,200,c.height);x.drawImage(i,0,0,200,c.height);LG=c.toDataURL("image/jpeg",.6);$("#lgp").src=LG};i.src=URL.createObjectURL(f)}
+const cf=()=>({name:$("#sn").value,header:$("#sh").value,footer:$("#sf").value,logo:LG});
+function prev(){receipt({no:S.dev+"-000000-0001",ts:Date.now(),by:S.me.name,items:[{name:"Contoh produk",q:1,price:10000}],total:10000,method:"tunai",rec:20000},cf())}
+function sSave(){if(LG.length>40000)return alert("Logo terlalu besar");op("set",cf());alert("Tersimpan")}
+async function openSS(){try{const r=await api({action:"info"});if(r.url)open(r.url)}catch(e){alert("Perlu internet")}}
+boot();
+</script></body></html>
